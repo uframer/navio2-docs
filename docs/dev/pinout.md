@@ -1,8 +1,8 @@
-### Pinout
+### 引脚定义
 
-40-pin header pinout and sensors connections are displayed on the following picture:
+下图介绍了40-pin连接器的定义和传感器的连接方式：
 
 <a href="https://docs.emlid.com/navio2/dev/img/pinout.png" target="_blank"> ![scheme](img/pinout.png)</a>
 
-IO17 and IO18 pins on UART are available. 
+IO17 and IO18 pins on UART are available.
 GP26 (pin 37) on Raspberry Pi is also free. It may be used with lengthened extension header.

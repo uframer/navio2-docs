@@ -1,12 +1,12 @@
 
 <div style="text-align: center;"><img src="img/Navio2WithPaspberryPi.png"></div><br>
 
-This is a documentation for Navio2 - autopilot HAT for Raspberry Pi.
+本文是Navio2——Raspberry Pi的自动驾驶仪HAT扩展板——的文档。
 
-### Collaboration
+### 协作
 
-This document can be edited on [GitHub](https://github.com/emlid/navio2-docs) in markdown. If you find any mistakes, typos or  pieces that are not documented well enough simply open an issue or contribute by sending a pull request.
+这份文档可以在[GitHub](https://github.com/emlid/navio2-docs)上通过markdown语法编辑。如果你发现了错误、拼写问题或者缺少的内容，可以开一个issue或者通过pull request贡献你的修改。
 
-### Discussion
+### 讨论
 
-We are happy to answer any questions at [community.emlid.com](http://community.emlid.com)
+我们欢迎大家到[community.emlid.com](http://community.emlid.com)提出各种问题。

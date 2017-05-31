@@ -1,55 +1,55 @@
-## Currently supported boards
+## 目前支持的飞控板
 
-ArduPilot on Navio2 is working on:
+ArduPilot on Navio2可以运行在：
 
 * Raspberry Pi 3 Model B
 * Raspberry Pi 2 Model B
 
 !!! note
-    Other models such as Raspberry Pi Model A+, Raspberry Pi Model B+, Raspberry Pi Zero are electrically compatible, but lack performance to run ArduPilot:Copter. It is completely safe to use Navio2 with all boards stated above.
+    其他一些型号，例如Raspberry Pi Model A+、Raspberry Pi Model B+、Raspberry Pi Zero同Navio2都是电气兼容的，但是它们的性能不足以支撑ArduPilot:Copter的运行。将Navio2同这些型号连接是完全安全的。
 
-## Attaching Navio2 to a Raspberry Pi
+## 将Navio2安装到Raspberry Pi
 
 * Install spacers to the top side of Raspberry Pi and fix them with screws from the bottom.
 * Connect extension header to the 40-pin gpio port.
 * Attach Navio2 to the extension header.
-* Fix Navio2 using screws.
+* 使用螺丝固定Navio2。
 
 ![mount](img/navio2-mount.png)
 
-## Powering Navio2
+## 为Navio2供电
 
 !!! attention
     ALL POWER SOURCES SHOULD PROVIDE VOLTAGE IN 4.8-5.3V RANGE, OTHERWISE YOU CAN DAMAGE YOUR NAVIO2 AND RASPBERRY PI.**
 
-Navio2 has three power sources, all of them can be used simultaneously as they are protected by ideal diodes.
+Navio2可以通过三种方式供电，它们被理想二极管保护，所以你可以同时使用多种方式。
 
-### For testing and development purposes
+### 测试及开发适合的供电方式
 
 Connect 5V 1A power adapter to the Raspberry Pi’s microUSB port. Raspberry Pi will provide power to the Navio2.
 
-### In a drone
+### 无人机上的供电方式
 
-Navio2 should be powered by a power module connected to the “POWER” port on Navio2. Navio2 will provide power to the Raspberry Pi.
+Navio2 should be powered by a power module connected to the “POWER” port on Navio2. Navio2会为Raspberry Pi供电。
 ![power-module](img/navio2-power-module.png)
 
-### Redundancy
+### 冗余
 
-In case of power module failure Navio2 will switch to power from the servo rail.
+如果电源模块失效了，Navio2会切换到舵机电轨取电。
 
-## Powering servo rail
+## 通过舵机电轨供电
 
 Power module does not power servos. To provide power to the servo rail plug your drone’s BEC into any free channel on the servo rail. Use BECs that provide voltage in a range of 4.8-5.3V. If you’d like to use high voltage servos use a power separation board.
 
 ![antenna](img/navio2-esc.png)
 
-## GNSS antenna
+## GNSS天线
 
-GNSS antenna is plugged into the MCX port on top of Navio2.
+GNSS天线通过Navio2顶部的MCX接口连接。
 
 ![antenna](img/navio2-gnss-antenna.png)
 
-## RC input
+## RC输入
 
 Navio2 supports PPM and SBUS signals as an RC input. To connect receivers that do not support PPM output you can use PPM encoder. PPM receiver is powered by Navio2 and does not require power on the servo rail.
 
@@ -70,9 +70,9 @@ FrSky TFR4 4ch 2.4Ghz Surface/Air Receiver FASST Compatible
 
 ![rcin](img/navio2-rc-receiver.png)
 
-## RC output
+## RC输出
 
-### ESCs
+### ESC
 
 ESCs are connected to RC outputs labeled from 1 to 14 on a 2.54mm header.
 
@@ -80,47 +80,47 @@ Only one ESC power wire (central) should be connected to Navio2 servo rail, othe
 
 ![escs](img/navio2-escs.png)
 
-### Servos
+### 舵机
 
-Servos are connected to RC outputs labeled from 1 to 14 on a 2.54mm header.
+可以通过1到14号2.54mm舵机输出引脚连接舵机。
 
-Power module does not provide power to servos. To provide power to servos connect BEC to the servo rail. BEC would also serve as back-up power supply to Navio2.
+电源模块并不会给舵机供电。你需要用BEC通过舵机电轨给舵机供电。BEC也会作为Navio2的备份电源。
 
 ![servos](img/navio2-servos.png)
 
-## Telemetry modem
+## 数传调制解调器
 
-Radio modems can be connected either over UART or over USB.
+可以通过UART或者USB端口连接数传。
 
-### UART radio
+### UART数传
 
-For UART port use /dev/ttyAMA0 serial.
+使用/dev/ttyAMA0串口连接UART数传。
 ![uartradio](img/navio2-uart-radio.png)
 
-### USB radio
+### USB数传
 
-Use /dev/ttyUSB0 virtual serial port for USB.
+使用/dev/ttyUSB0虚拟串口连接USB数传。
 ![usbradio](img/navio2-usb-radio.png)
 
-## Barometer UV protection
+## 气压计的紫外线保护
 
-MS5611 barometer (steel cap IC) is sensitive to UV light and might report sudden jumps in altitude under sunlight. It is very important to cover it with a piece of open cell foam (something like microphone fabric) or put autopilot in a protective case to protect it both from sunlight and airstreams.
+MS5611气压计（钢壳的IC）对紫外线非常敏感，在阳光下输出的高度可能会跳变。使用一块泡沫把气压计覆盖起来是很有必要的，或者你也可以为Navio2加一个保护壳，既能遮蔽阳光也能屏蔽气流。
 
 ![barouvprotection](img/baro-uv-protection.jpg)
 
 
-## Anti-vibration mount
+## 减震支架
 
-We have designed an anti-vibration for Navio that can be easily 3D printed. It significantly simplifies mounting and eliminates vibrations.  
-Bottom view:
+我们为Navio设计了3D打印的减震支架，它可以简化安装方式，同时消除震动。  
+底视图：
 ![vibronavio](img/vibro-bottom-view.png)
-Anti-vibration with Navio2 mounted on frame:
+Navio2减震支架安装图：
 ![anti-vibration-mount](img/anti-vibration-mount.jpg)
 
 
-STL Files:  
-[Top](https://github.com/emlid/hardware/blob/master/VibroNavio2top_rev_A.STL)  
-[Bottom](https://github.com/emlid/hardware/blob/master/VibroNavio2bot_rev_A.STL)  
+STL文件：  
+[上半部](https://github.com/emlid/hardware/blob/master/VibroNavio2top_rev_A.STL)  
+[下半部](https://github.com/emlid/hardware/blob/master/VibroNavio2bot_rev_A.STL)  
 
-You will also need 8 blue vibration damping balls from [Hobbyking](https://hobbyking.com/en_us/vibration-damping-ball-65g-bag-of-8.html)
+你还需要8个减震球，例如[Hobbyking](https://hobbyking.com/en_us/vibration-damping-ball-65g-bag-of-8.html)上的这个。
 ![damping-balls](img/damping-balls.jpg)
