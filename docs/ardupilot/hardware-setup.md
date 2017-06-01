@@ -39,7 +39,7 @@ Navio2 should be powered by a power module connected to the “POWER” port on 
 
 ## 通过舵机电轨供电
 
-Power module does not power servos. To provide power to the servo rail plug your drone’s BEC into any free channel on the servo rail. Use BECs that provide voltage in a range of 4.8-5.3V. If you’d like to use high voltage servos use a power separation board.
+电源模块并不会给舵机供电。To provide power to the servo rail plug your drone’s BEC into any free channel on the servo rail. Use BECs that provide voltage in a range of 4.8-5.3V. If you’d like to use high voltage servos use a power separation board.
 
 ![antenna](img/navio2-esc.png)
 
@@ -51,20 +51,20 @@ GNSS天线通过Navio2顶部的MCX接口连接。
 
 ## RC输入
 
-Navio2 supports PPM and SBUS signals as an RC input. To connect receivers that do not support PPM output you can use PPM encoder. PPM receiver is powered by Navio2 and does not require power on the servo rail.
+Navio2支持PPM和SBUS遥控信号输入。如果你的接收机不支持PPM输出，那么你需要使用一个PPM编码器。PPM接收机由Navio2供电，不需要额外从舵机电轨供电。
 
 !!! important
-    Do not connect servos to the RC receiver! Servos can consume a lot of power which RC receiver port may not be able to provide and that may lead to Raspberry Pi and Navio shutting down and even getting damaged.
+    不要把舵机直接连接到接收机上！舵机是耗电大户，接收机端口可能不能提供那么多电，后果就是Raspberry Pi和Navio可能会关机甚至损坏。
 
-Some of the receivers with PPM output:
+有些接收机带有PPM输出功能：
 
-### For ACCST (most FrSky transmitters)
+### ACCST（大多数FrSky遥控器）
 
 * FrSky D4R-II 4ch 2.4Ghz ACCST Receiver
 * FrSKY V8R7-SP ACCST 7 Channel RX with composite PPM
 * FrSKY D8R-XP
 
-### For FASST (Futaba & some FrSky trasmitters)
+### FASST（Futaba和部分FrSky遥控器）
 
 FrSky TFR4 4ch 2.4Ghz Surface/Air Receiver FASST Compatible
 
@@ -74,15 +74,15 @@ FrSky TFR4 4ch 2.4Ghz Surface/Air Receiver FASST Compatible
 
 ### ESC
 
-ESCs are connected to RC outputs labeled from 1 to 14 on a 2.54mm header.
+可以通过1到14号2.54mm RC输出引脚连接ESC。
 
-Only one ESC power wire (central) should be connected to Navio2 servo rail, otherwise BECs built in ESCs will heat each other.
+你最多只能在舵机电轨上连接一个ESC的BEC电源线，否则多个BEC会因为微小的电压差互相加热。
 
 ![escs](img/navio2-escs.png)
 
 ### 舵机
 
-可以通过1到14号2.54mm舵机输出引脚连接舵机。
+可以通过1到14号2.54mm RC输出引脚连接舵机。
 
 电源模块并不会给舵机供电。你需要用BEC通过舵机电轨给舵机供电。BEC也会作为Navio2的备份电源。
 
