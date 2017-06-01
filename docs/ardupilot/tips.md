@@ -1,18 +1,18 @@
-### Auxiliary function switches
+### 辅助功能开关
 
 Auxiliary function switches on channels 5-8 are still not supported and could lead to erroneous PWM generation on motors' channels.
 
 !!! danger " "
     We do ask to NOT SET AUXILIARY FUNCTION SWITCHES TO RC5..8!
 
-### Second compass configuration
+### 第二罗盘的配置
 
 Navio2 contains two compasses - AK8963 and LSM9DS1. The latter has lower offsets and set as primary.
 AK8963 is disabled by default.  
 
-We're walking you through the steps requeired to perform the onboard compass calibration. 
+We're walking you through the steps requeired to perform the onboard compass calibration.
 
-## Onboard calibraton
+## 在线校准
 
 Navigate to Initial Setup - Mandatory Hardwawre - Compass
 
@@ -27,9 +27,9 @@ Navigate to Initial Setup - Mandatory Hardwawre - Compass
 - Swith to another view and get back to **Compass Calibration**
 - Verify that offsets that have been calculated in the previous steps have been saved
 
-### Voltage and current sensing
+### 电压和电流测量
 
-If you have original power module connected to Navio2, you can get battery voltage and curent readings from it.
+如果你使用Navio2原装的电源模块，可以从它得到电压和电流的读数。
 
 ![PM](img/navio2-power-module.png)
 
@@ -47,7 +47,7 @@ Now you need restart both ArduPilot and connection between Mission Planner and A
 - press 'reboot pixhawk' button
 - on main menu bar press 'DISCONNECT' and then 'CONNECT'
 
-When everything is done you should see voltage and current values on Flight Data screen. 
+When everything is done you should see voltage and current values on Flight Data screen.
 
 Also you can check in full parameter list that:
 
@@ -55,7 +55,7 @@ Also you can check in full parameter list that:
 BATT_CURR_PIN 3
 BATT_VOLT_PIN 2
 ```
-### Further configuration
+### 进阶配置
 
 As other ArduPilot configuration procedures are very similar for most ArduPilot-running autopilot hardware, please use the ArduPilot documentation.
 

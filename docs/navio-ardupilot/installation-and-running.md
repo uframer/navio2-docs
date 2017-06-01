@@ -3,7 +3,7 @@
 You can run ArduPilot on Raspberry Pi 3 or 2 with Navio2. The autopilot's code works directly on Raspberry Pi. For ArduPilot to work properly please use the configured Raspbian distribution that we provide.  
 
 
-#### Installing ArduPilot
+#### 安装ArduPilot
 
 Newest versions of Emlid Raspbian has preinstalled ArduPilot package. It includes all vehicles and is based on the most stable branch available. Currently these are:
 
@@ -16,20 +16,9 @@ pi@navio: ~ $ sudo apt-get update && sudo apt-get install apm-navio2
 ```
 Navio2 is supported in ArduPilot upstream and if you'd like to build the binary yourself please proceed to the [Building from sources](building-from-sources.md).
 
-#### Downloading stable binary
+#### 下载稳定版二进制文件
 
 Also you can download the latest stable binary files from ardupilot buildserver. To download arducopter-quad binary:
-
-```bash
-pi@navio: ~ $ wget http://firmware.eu.ardupilot.org/Copter/stable/navio2-quad/arducopter-quad
-pi@navio: ~ $ chmod +x arducopter-quad
-```
-In case of use another frame type, change tail of the link. For example `/navio2-hexa/arducopter-hexa`. Supported vehicle types are listed below.
-Navio2 is supported in ArduPilot upstream and if you'd like to build the binary yourself please proceed to the [Building from sources](building-from-sources.md).
-
-#### Downloading stable binary
-
-Also you can download the latest stable binary files from ArduPilot buildserver. To download arducopter-quad binary:
 
 ```bash
 pi@navio: ~ $ wget http://firmware.eu.ardupilot.org/Copter/stable/navio2-quad/arducopter-quad
@@ -48,16 +37,18 @@ In case of use another frame type, change tail of the link. For example `/navio2
 * ArduCopter-heli
 * ArduCopter-single
 
+Navio2 is supported in ArduPilot upstream and if you'd like to build the binary yourself please proceed to the [Building from sources](building-from-sources.md).
+
 #### Systemd
 
-For launching ArduPilot we are using `systemd` init system which provides manager for all services and processes. 
+For launching ArduPilot we are using `systemd` init system which provides manager for all services and processes.
 The main command used to control systemd is `systemctl`. Some of its uses are:
-- examining the system state 
-- managing the system and services. 
+- examining the system state
+- managing the system and services.
 
 See `man systemctl` for more details.
 
-#### Running ArduPilot
+#### 运行ArduPilot
 
 If you run ArduPilot for the first time you should make some preparations.  
 First you need to edit `ardupilot.service` file, where you choose ArduPilot for your vehicle type.
@@ -65,7 +56,7 @@ First you need to edit `ardupilot.service` file, where you choose ArduPilot for 
 Open the file:
 
 ```bash
-pi@navio: ~ $ sudo nano /lib/systemd/system/ardupilot.service 
+pi@navio: ~ $ sudo nano /lib/systemd/system/ardupilot.service
 ```
 
 All lines marked '#' are comments and have no effect on ArduPilot service. So you need to uncomment one line to launch quadcopter/plane or rover on Navio 2.  
@@ -81,7 +72,7 @@ ExecStart=/opt/ardupilot/navio2/arducopter/bin/arducopter-octa $ARDUPILOT_OPTS
 #ExecStart=/opt/ardupilot/navio2/arduplane/bin/arduplane $ARDUPILOT_OPTS
 ```
 
-To launch binary that was either build from sources or downloaded, edit the last section of the file: 
+To launch binary that was either build from sources or downloaded, edit the last section of the file:
 ```bash
 # Uncomment and modify this line if you want to launch your own binary
 #ExecStart=/home/pi/<path>/<to>/<your>/<binary> $ARDUPILOT_OPTS

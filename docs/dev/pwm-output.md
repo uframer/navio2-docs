@@ -1,4 +1,4 @@
-## PWM output
+## PWM输出
 
 PWM 0-13 channels are available on 2.54mm header pins numbered 1-14 accordingly. Servos can be controlled by setting the correct frequency (50hz is a common frequency) and duty cycle corresponding to the length of a pulse (usually between 1 and 2 milliseconds).
 
@@ -27,5 +27,3 @@ sudo python Servo.py
 
 For further information see cource code. Note that ```set_period``` function sets the period for PWM_OUTPUT channel depending on frequency value,which passed as a second parameter to the function.  
 To set the pulse range appropriate for your servo you can change the SERVO_MIN and SERVO_MAX values.
-
-
