@@ -10,9 +10,9 @@ ArduPilot on Navio2可以运行在：
 
 ## 将Navio2安装到Raspberry Pi
 
-* Install spacers to the top side of Raspberry Pi and fix them with screws from the bottom.
-* Connect extension header to the 40-pin gpio port.
-* Attach Navio2 to the extension header.
+* 将支柱放在Raspberry Pi上面的螺孔处，然后用螺钉从底部穿过Raspberry Pi旋入支柱固定。
+* 将40p的扩展插头插入到Raspberry Pi的40 GPIO插针上。
+* 将Navio2安装在扩展插头上。
 * 使用螺丝固定Navio2。
 
 ![mount](img/navio2-mount.png)
@@ -20,26 +20,26 @@ ArduPilot on Navio2可以运行在：
 ## 为Navio2供电
 
 !!! attention
-    ALL POWER SOURCES SHOULD PROVIDE VOLTAGE IN 4.8-5.3V RANGE, OTHERWISE YOU CAN DAMAGE YOUR NAVIO2 AND RASPBERRY PI.**
+    所有的电源电压都不能超出4.8-5.3V的范围，否则你可能会烧毁Navio2和Raspberry Pi。
 
 Navio2可以通过三种方式供电，它们被理想二极管保护，所以你可以同时使用多种方式。
 
-### 测试及开发适合的供电方式
+### 开发/测试供电模式
 
-Connect 5V 1A power adapter to the Raspberry Pi’s microUSB port. Raspberry Pi will provide power to the Navio2.
+将Raspberry Pi的MicroUSB端口接入5V 1A的电源适配器。Raspberry Pi会为Navio2提供电源。
 
-### 无人机上的供电方式
+### 机上供电模式
 
-Navio2 should be powered by a power module connected to the “POWER” port on Navio2. Navio2会为Raspberry Pi供电。
+Navio2应该通过一个连接到Navio2的 *POWER* 端口的电源模块供电。Navio2会为Raspberry Pi供电。
 ![power-module](img/navio2-power-module.png)
 
-### 冗余
+### 冗余供电
 
 如果电源模块失效了，Navio2会切换到舵机电轨取电。
 
 ## 通过舵机电轨供电
 
-电源模块并不会给舵机供电。To provide power to the servo rail plug your drone’s BEC into any free channel on the servo rail. Use BECs that provide voltage in a range of 4.8-5.3V. If you’d like to use high voltage servos use a power separation board.
+电源模块并不驱动舵机。你需要将你的BEC插入舵机电轨的空闲接口为舵机电轨供电。BEC的电压不能超出4.8-5.3V的范围。如果你想要使用高压舵机，那么请使用电源隔离电路。
 
 ![antenna](img/navio2-esc.png)
 
@@ -58,15 +58,15 @@ Navio2支持PPM和SBUS遥控信号输入。如果你的接收机不支持PPM输�
 
 有些接收机带有PPM输出功能：
 
-### ACCST（大多数FrSky遥控器）
+### ACCST技术（大多数FrSky接收机）
 
-* FrSky D4R-II 4ch 2.4Ghz ACCST Receiver
-* FrSKY V8R7-SP ACCST 7 Channel RX with composite PPM
+* FrSky D4R-II 4ch 2.4Ghz ACCST接收机
+* FrSKY V8R7-SP ACCST 7通道接收机+复合PPM
 * FrSKY D8R-XP
 
-### FASST（Futaba和部分FrSky遥控器）
+### FASST技术（Futaba和某些FrSky接收机）
 
-FrSky TFR4 4ch 2.4Ghz Surface/Air Receiver FASST Compatible
+FrSky TFR4 4ch 2.4Ghz地/空接收机（兼容FASST）
 
 ![rcin](img/navio2-rc-receiver.png)
 

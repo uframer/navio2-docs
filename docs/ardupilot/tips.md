@@ -1,31 +1,30 @@
 ### 辅助功能开关
 
-Auxiliary function switches on channels 5-8 are still not supported and could lead to erroneous PWM generation on motors' channels.
+目前我们还不支持通道5-8上的辅助功能开关，操作它们可能会造成在电机通道上产生错误的PWM信号。
 
 !!! danger " "
-    We do ask to NOT SET AUXILIARY FUNCTION SWITCHES TO RC5..8!
+    一定不要在通道5-8上设置辅助功能开关!
 
 ### 第二罗盘的配置
 
-Navio2 contains two compasses - AK8963 and LSM9DS1. The latter has lower offsets and set as primary.
-AK8963 is disabled by default.  
+Navio2包含两个罗盘 - AK8963和LSM9DS1。后者的偏移更小并被设置为主罗盘。默认禁用AK8963。  
 
-We're walking you through the steps requeired to perform the onboard compass calibration.
+W我们将带领你一步一步的完成板载罗盘的校准。
 
-## 在线校准
+## 板载罗盘校准
 
-Navigate to Initial Setup - Mandatory Hardwawre - Compass
+依次进入`Initial Setup` - `Mandatory Hardwawre` - `Compass`
 
-- If you use two compasses tick **Use this compass** in **Compass #2** tab
-- Click on **Start** button in **Onboard Mag Calibration** tab
-- Rotate your drone around all axis
-- Wait for calibration to complete (the process ends with a message similar to one on the picture attached below)
+- 如果你启用了两个罗盘，那么在`Compass #2`页面勾选`Use this compass`
+- 在`Onboard Mag Calibration`标签页点击`Start`按钮
+- 分别绕X、Y、Z三个轴旋转你的无人机
+- 等待校准完成（完成时会弹出类似于如下的消息）
 
 ![compass-onboard-calibration](img/compass-onboard-calibration.png)
 
-- Click **Accept** button (there's a change nothing's going to happen in responce)
-- Swith to another view and get back to **Compass Calibration**
-- Verify that offsets that have been calculated in the previous steps have been saved
+- 点击`Accept`按钮（有可能点了之后什么反应也没有）
+- 切换到另一个视图然后再切换回`Compass Calibration`
+- 请确认前面校准得到的偏移量已经被成功保存
 
 ### 电压和电流测量
 
@@ -33,23 +32,23 @@ Navigate to Initial Setup - Mandatory Hardwawre - Compass
 
 ![PM](img/navio2-power-module.png)
 
-To setup voltage and current measurement for ArduPilot:
+请按照如下步骤设置ArduPilot中的电压和电流测量：
 
-- switch to Initial Setup tab in Mission Planner
-- navigate to Optional Hardware - Battery Monitor section
-- set Monitor, Sensor and ArduPilot Ver options as shown below
+- 在Mission Planner中切换到`Initial Setup`标签页
+- 找到`Optional Hardware` - `Battery Monitor`
+- 按照下图设置`Monitor`、`Sensor`和`ArduPilot Ver`的参数
 
 ![BatteryMonitor](img/mp-battery-monitor.png)
 
-Now you need restart both ArduPilot and connection between Mission Planner and ArduPilot:
+接下来你需要重启ArduPilot然后重新连接Mission Planner：
 
-- use Ctrl-F shortcut to open Temp Screen
-- press 'reboot pixhawk' button
-- on main menu bar press 'DISCONNECT' and then 'CONNECT'
+- 使用快捷键`Ctrl-F`打开`Temp Screen`
+- 电机`reboot pixhawk`按钮
+- 在主菜单栏上点击`DISCONNECT`，然后再点击`CONNECT`
 
-When everything is done you should see voltage and current values on Flight Data screen.
+完成上述操作之后，你就可以在`Flight Data`屏幕上见到电压和电流的读数了。
 
-Also you can check in full parameter list that:
+你还可以查看完整的参数列表：
 
 ```bash
 BATT_CURR_PIN 3
@@ -57,10 +56,10 @@ BATT_VOLT_PIN 2
 ```
 ### 进阶配置
 
-As other ArduPilot configuration procedures are very similar for most ArduPilot-running autopilot hardware, please use the ArduPilot documentation.
+由于其他的Ardupilot配置过程同大多数的Ardupilot飞控过程很相似，所以请直接参考Ardupilot的文档。
 
-[Hardware configuration](http://ardupilot.org/copter/docs/configuring-hardware.html)
+[硬件配置](http://ardupilot.org/copter/docs/configuring-hardware.html)
 
-[ESC Calibration](http://ardupilot.org/copter/docs/esc-calibration.html)
+[ESC校准](http://ardupilot.org/copter/docs/esc-calibration.html)
 
-[Enable RC Failsafe](http://ardupilot.org/copter/docs/radio-failsafe.html)!
+[开启RC失效保护](http://ardupilot.org/copter/docs/radio-failsafe.html)!

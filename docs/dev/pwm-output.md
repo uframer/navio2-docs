@@ -1,14 +1,14 @@
 ## PWM输出
 
-PWM 0-13 channels are available on 2.54mm header pins numbered 1-14 accordingly. Servos can be controlled by setting the correct frequency (50hz is a common frequency) and duty cycle corresponding to the length of a pulse (usually between 1 and 2 milliseconds).
+0-13号PWM通道对外通过编号为1-14的2.54mm针脚连接。舵机一般需要通过正确的频率（例如常见的50hz）和占空比（控制脉冲的长度，通常在1-2秒之间）来控制。
 
-To try to control servo connect the servo to the Navio’s output channel number 1 and run the provided example. Do not forget to supply power to the servo rail.
+如果想通过这个示例来控制舵机，请将舵机连接到Navio的1号输出通道。不要忘了为舵机电轨供电。
 
-If you haven't already done that, download Navio2 drivers and examples code [here](navio-repository-cloning/).
+如果你现在还没有下载过Navio2的驱动和示例代码，那么现在去[这里](navio-repository-cloning/)把它下载下来。
 
 ### C++
 
-Move to the folder with the source code, compile and run the example
+进入源码目录，编译并运行：
 
 ```bash
 cd C++/Examples/Servo
@@ -18,12 +18,11 @@ sudo ./Servo
 
 ### Python
 
-Move to the folder with the code and run the example
+进入源码目录，运行：
 
 ```bash
 cd Python
 sudo python Servo.py
 ```
 
-For further information see cource code. Note that ```set_period``` function sets the period for PWM_OUTPUT channel depending on frequency value,which passed as a second parameter to the function.  
-To set the pulse range appropriate for your servo you can change the SERVO_MIN and SERVO_MAX values.
+请阅读源码了解详细信息。注意`set_period`函数会根据第二个参数设定的频率来控制`PWM_OUTPUT`通道的周期。你可以通过修改`SERVO_MIN`和`SERVO_MAX`的值来修改脉冲范围的值。

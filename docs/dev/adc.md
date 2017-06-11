@@ -1,26 +1,30 @@
 ## ADC示例
 
-In this example ADC continuously measures voltage on all six channels available on Navio2. The first two channels are responsible for board voltage and servo rail voltage. Channels 2 and 3 show voltage and current levels in the “Power” connector respectively. The last two channels are present in "ADC" connector.
+在这个例子中，ADC会持续地测量Navio2上所有六个通道的电压值。在这六个通道中，前两个通道负责测量Navio2板的电压和舵机电轨的电压。通道2和通道3分别显示“Power”连接器的电压和电流值。剩下两个通道测量的是"ADC"连接器所连接到的值。
 
-Download Navio2 drivers and examples code [here](navio-repository-cloning/).
+请从[这里](navio-repository-cloning/)下载Navio2的驱动和示例代码。
 
 ### C++
 
-Move to the folder with the source code, compile and run the example:
+进入源码目录，编译并运行：
+
 ```bash
 cd C++/Examples/ADC
 make
 ./ADC
 ```
+
 ### Python
 
-Move to the folder with the source code and run the example:
+进入源码目录，运行：
+
 ```bash
 cd Python
 python ADC.py
 ```
-The program performs measurement of all 6 ADC channels and outputs measured values in volts in six columns.
-When channels inputs are not connected to anything there would probably be a little bit of potential.
+
+这个程序可以测量所有6个ADC通道的值，然后分6列输出测量到的电压值。如果对应的通道没有连接，也可能会有一点电势。
+
 ```bash
 A0: 4.7480V A1: 0.0860V A2: 0.0240V A3: 0.0200V A4: 0.0300V A5: 0.0140V
 A0: 4.7980V A1: 0.0860V A2: 0.0140V A3: 0.0220V A4: 0.0080V A5: 0.0160V
@@ -29,15 +33,16 @@ A0: 4.7980V A1: 0.1040V A2: 0.0100V A3: 0.0200V A4: 0.0080V A5: 0.0300V
 A0: 4.7960V A1: 0.0900V A2: 0.0220V A3: 0.0080V A4: 0.0300V A5: 0.0140V
 A0: 4.7960V A1: 0.0860V A2: 0.0100V A3: 0.0220V A4: 0.0080V A5: 0.0320V
 ```
-Mapping between A0 - A5 and ADC:  
 
-* A0 - board voltage (shows 5V)  
-* A1 - servo rail voltage  
-* A2 - power module voltage (ADC0, POWER port)  
-* A3 - power module current (ADC1, POWER port)  
-* A4 - ADC2  (ADC port)  
-* A5 - ADC3  (ADC port)
+A0 - A5和ADC之间的映射关系如下：  
 
-Numbers of A0 - A5 channels correspond to ArduPilot's ADC channels.
+* A0 - 飞控板电压（显示5V）
+* A1 - 舵机电轨电压
+* A2 - 电源模块电压（ADC0、POWER端口）
+* A3 - 电源模块电流（ADC1、POWER端口）
+* A4 - ADC2（ADC端口）
+* A5 - ADC3（ADC端口）
 
-For further information see source code. Pay attention to ```adc.init()``` and ```adc.read()``` functions. ```adc.init()``` function initialize 6 ADC channels. After that it's possible to read value of channels 0-5 with ```adc.read()``` function. It takes channel number as an argument.
+A0 - A5通道的数字对应于ArduPilot的ADC通道。
+
+请阅读源码获得详细信息。请注意`adc.init()`和`adc.read()`函数。`adc.init()`函数会初始化6个ADC通道。在这之后你可以通过`adc.read()`函数读取0-5号通道的值。它需要通过参数指定通道的编号。

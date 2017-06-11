@@ -1,19 +1,19 @@
 ### SYSFS
 
-On Navio2 PWM, ADC, SBUS and PPM are integrated in Linux sysfs allowing for easy access from any programming language. 
-Sysfs is a virtual file system that exports info about kernel subsystem and hardware devices. 
+在Navio2上，PWM、ADC、SBUS和PPM都被集成进Linux的sysfs文件系统中，你可以从任何编程语言中访问它们。Sysfs是一种虚拟文件系统，它可以将内核和硬件设备的信息导出到用户空间。
 
-For instance, sysfs provides easy access to attributes of Navio's PWM (`/sys/class/pwm/pwmchip0/`) or RC input structures (`/sys/kernel/rcio/rcin/`).
+例如，可以通过`/sys/class/pwm/pwmchip0/`访问PWM的属性，或者通过`/sys/kernel/rcio/rcin/`访问RC输入的结构。
 
-### RCIO status
+### RCIO状态
 
-If you face problem with PWM generating or RC input decoding check the status of Navio's onboard RCIO.
+如果你遇到PWM生成或者RC输入解码相关的问题，请检查Navio的板载RCIO状态。
 
-To get the status execute this command:
+使用下面的命令获得状态：
+
 ```bash
 pi@navio:~ $ cat /sys/kernel/rcio/status/alive
 ```
-RCIO is powered on and detected by Raspberry Pi if the result of above operation is `1`. 
 
-`0` shows that RCIO is not connected. First of all check the hardware connection between Navio2 and Raspberry Pi. 
-Navio2 should be fixed using screws as stated in our [hardware setup docs](https://docs.emlid.com/navio2/Navio-APM/hardware-setup/#attaching-navio2-to-a-raspberry-pi). 
+如果输出是`1`，那么表示RCIO已经开启并且Raspberry Pi可以检测到它。
+
+`0`表示RCIO没有连接。优先你需要检查Navio2和Raspberry Pi之间的所有的硬件连接。Navio2应该按照[硬件设置文档](https://docs.emlid.com/navio2/Navio-APM/hardware-setup/#attaching-navio2-to-a-raspberry-pi)所说用螺丝固定好。

@@ -1,9 +1,6 @@
 ## 概览
 
-Please take a look at ArduPilot
-[documentation](http://ardupilot.org/copter/docs/connect-escs-and-motors.html#motor-order-diagrams)
-to get a deeper understanding what's going on inside. This is essential for every build.
-We present a couple of typical setup schemes below. Either way, you're encouraged to read through ArduPilot docs before proceeding further.
+请参考ArduPilot[文档](http://ardupilot.org/copter/docs/connect-escs-and-motors.html#motor-order-diagrams)中的详细介绍，不管你想用什么类型的配置，都应该读一下。我们下面展示了几种典型的配置。无论如何，我们都建议你在动手前详细阅读ArduPilot的文档。
 
 ## 四轴设置
 
