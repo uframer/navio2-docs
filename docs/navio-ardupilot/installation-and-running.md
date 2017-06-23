@@ -25,7 +25,7 @@ pi@navio: ~ $ wget http://firmware.eu.ardupilot.org/Copter/stable/navio2-quad/ar
 pi@navio: ~ $ chmod +x arducopter-quad
 ```
 
-如果想要卸载其他类型机架的文件，修改后缀即可，例如，改成`/navio2-hexa/arducopter-hexa`。目前支持的类型包括：
+如果想要启动其他类型机架的文件，修改后缀即可，例如，改成`/navio2-hexa/arducopter-hexa`。目前支持的类型包括：
 
 * ArduRover
 * ArduPlane

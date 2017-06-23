@@ -1,18 +1,18 @@
-## Overview
+## 概览
 
-You can run ArduPilot on Raspberry Pi 3 or 2 with Navio. The autopilot's code works directly on Raspberry Pi. For ArduPilot to work properly please use the configured Raspbian distribution that we provide.  
+你可以在Raspberry Pi 3/2+Navio的设备上使用ArduPilot，ArduPilot的代码直接运行在Raspberry Pi上。请使用我们提供的预配置的Raspbian发行版。  
 
-## Current vehicle versions
+## 当前的设备版本
 
-Emlid Raspbian has preinstalled ArduPilot. It includes all vehicles and is based on the most stable branch available. Currently these are:
+Emlid Raspbian已经预置了ArduPilot，它包含对所有机型/设备的支持并且基于目前最稳定的分支：
 
 * ArduPlane: **3.7.1**
 * ArduRover: **3.1.2**
 * ArduCopter: **3.4.6**
 
-## Greeting
+## 欢迎文本
 
-Once you ssh into Raspberry Pi you'll be greated with a message that looks like this:
+通过ssh登录Raspberry Pi后，你会看到下面这样的消息：
 
 ```
 To enable ArduPilot on boot:
@@ -50,30 +50,28 @@ To disable ArduPilot on boot:
         - sudo systemctl disable ardurover
 ```
 
-We'll guide you through what's going on under the hood in the sections below.
+下面我们分节详细介绍详细内容。
 
 ## Systemd
 
-For launching ArduPilot we are using `systemd` init system which provides manager for all services and processes. 
-The main command used to control systemd is `systemctl`. Some of its uses are:
+我们使用`systemd`启动ArduPilot。主要用到的命令是`systemctl`。它的功能包括但不限于：
 
-* examining the system state 
-* managing the system and services. 
+* 检查系统状态
+* 管理系统和服务
 
-See `man systemctl` for more details.
+更多细节请查看`man systemctl`手册。
 
-## Choosing a vehicle, version and board
+## 选择设备类型、版本和飞控板
 
-All of the ArduPilot binaries are installed to /opt/ardupilot/ardu[vehicle]-[ap_major_version]/bin
-We use `update-alternatives` utility for the binary selection. This utility maintains symlinks to /usr/bin/arducopter, /usr/bin/arduplane and /usr/bin/ardurover.
+所有的ArduPilot二进制文件都被安装到`/opt/ardupilot/ardu[vehicle]-[ap_major_version]/bin`中。我们使用`update-alternatives`工具来切换所用的二进制文件。这个工具负责维护指向`/usr/bin/arducopter`、`/usr/bin/arduplane`和`/usr/bin/ardurover`。
 
-In the example below we'll use arducopter but it could've been just as well arduplane or ardurover.
+在下面的例子中我们会使用arducopter，但是你可以按照自己的需要选择arduplane或者ardurover。
 
 ```bash
 pi@navio: ~ sudo update-alternatives --config arducopter
 ```
 
-This will produce the output like this:
+该命令的输出类似于：
 
 ```bash
 There are 18 choices for the alternative arducopter
@@ -93,20 +91,20 @@ Selection Path                                               Priority  Status
 Press enter to keep the current choice[*], or type selection number:
 ```
 
-The first line shows the vehicle that is launched by default. If you want to select another frame, board or version you need to select an appropriate one.
+第一行显示了会默认启动的设备。如果你想选择另一个机架、飞控板或者版本，那么就从列表里选择对应的条目。
 
-For example, in case you build a quad on Navio 2 and want to use ArduCopter-3.4 you will need to type 15 and then press enter.
+例如，如果你基于Navio 2构建了一个四轴飞行器，并想要使用ArduCopter-3.4，那么可以输入15然后按回车键。
 
 
-## Specifying launching options
- 
-Open the file:
+## 指定启动选项
+
+打开文件：
 
 ```bash
-pi@navio: ~ $ sudo nano /etc/default/arducopter 
+pi@navio: ~ $ sudo nano /etc/default/arducopter
 ```
 
-Here you can specify IP of your ground station.
+在里面可以指定地面站的IP。
 
 ```bash
 TELEM1="-A udp:127.0.0.1:14550"
@@ -124,114 +122,116 @@ ARDUPILOT_OPTS="$TELEM1 $TELEM2"
 # -B or -E is used to specify non default GPS
 ```
 
-All lines marked '#' are comments and have no effect. 
+所有以`#`开头的行都是注释，不会影响设置。
 
-For example, you'll need to modify TELEM1 to point to your IP like this:
+例如，你可以向下面这样将TELEM1指向IP地址：
 
 `TELEM1`="-A udp:192.168.1.2:14550"
 
-Where 192.168.1.2 is the IP address of the device with the Ground Control Station - your laptop, smartphone etc.
+其中，`192.168.1.2`是地面站（你的笔记本、智能手机等）的IP地址。
 
 !!! tip
-    You can add additional options to `ARDUPILOT_OPTS` that are then passed to ArduPilot by adding new `TELEM` environment variables like this: `TELEM3`="-E /dev/ttyUSB1" `ARDUPILOT_OPTS`="$TELEM1 $TELEM2 $TELEM3"
+    你可以向`ARDUPILOT_OPTS`添加额外的选项，这些选项会被传递给ArduPilot，例如添加一个新的`TELEM3`环境变量然后把它设置给`ARDUPILOT_OPTS`：`TELEM3="-E /dev/ttyUSB1" ARDUPILOT_OPTS="$TELEM1 $TELEM2 $TELEM3"`
 
-Mapping between switches and serial ports (TCP or UDP can be used instead of serial ports):
+命令行选项和串口（也可以使用TCP或者UDP替代串口）的对应关系如下：
 
 * -A - serial 0 (always console; default baud rate 115200)  
 * -C - serial 1 (normally telemetry 1; default baud rate 57600)  
-<sub>3DR Radios are configured for 57600 by default, so the simplest way to connect over them is to run with -C option.</sub>
+  * 3DR Radio默认配置为57600，所以最简单的方式是通过`-C`选项连接。
 * -D - serial 2 (normally telemetry 2; default baud rate 57600)  
 * -B - serial 3 (normally 1st GPS; default baud rate 38400)  
 * -E - serial 4 (normally 2st GPS; default baud rate 38400)  
 * -F - serial 5  
 
-Additionally take a look at [list of serial parameters](http://ardupilot.org/copter/docs/parameters.html?highlight=serial#serial-parameters) for Mission Planner.
+此外还请阅读Mission Planner的[串口参数列表](http://ardupilot.org/copter/docs/parameters.html?highlight=serial#serial-parameters)。
 
-When using UART for telemetry please keep in mind that serial ports have default baud rates.   
+当使用UART连接串口时，请留意默认的串口波特率。   
 
 
-## Reload configuration
+## 重新加载配置
 
-If you changed something in the previous step you need to reload configuration for systemd to work properly.
+如果你在前面的步骤中修改了配置，那么你需要通过systemd重新加载配置：
 
 ```bash
 pi@navio: ~ $ sudo systemctl daemon-reload
 ```
 
-## Starting
+## 启动
 
-Now you can start ArduPilot:
+现在你可以启动ArduPilot：
 
 ```bash
 pi@navio: ~ $ sudo systemctl start arducopter
 ```
 
-To stop the service run:
+可以使用下面的命令停止服务：
 
 ```bash
 pi@navio: ~ $ sudo systemctl stop arducopter
 ```
 
-## Autostarting on boot
+## 在引导时自动启动
 
-To automatically start ArduPilot on boot you need to enable `arducopter`:
+可以使用如下命令在开机时自动启动`arducopter`：
 
 ```bash
 pi@navio: ~ $ sudo systemctl enable arducopter
 ```
 
-To disable the autostart:
+可以使用如下命令禁用自动启动：
+
 ```bash
 pi@navio: ~ $ sudo systemctl disable arducopter
 ```
 
-You can check is ArduPilot already enabled or not:
+可以使用如下命令检查ArduPilot是否成功开启：
+
 ```bash
 pi@navio: ~ $ systemctl is-enabled arducopter
 ```
 
 
-## Connecting to the GCS
+## 连接到地面站
 
 ### Mission Planner
 
-A Windows only ground station. It is the most feature complete, though.
+Mission Planner只支持Windows平台。不过，它的功能是最完整的。
 
 ### QGroundControl
 
-A crossplatform ground station for Mavlink-based flight stacks (like Ardupilot).
+QGroundControl是一个跨平台的地面站，支持使用Mavlink的飞行软件栈（例如Ardupilot）。
 
 ### APM Planner
 
-APM Planner is a ground station software for ArduPilot. It can be downloaded from the
-[ardupilot.com](http://ardupilot.com/downloads/?category=35)
+APM Planner是专为Ardupilot开发的地面站软件。可以从[ardupilot.com](http://ardupilot.com/downloads/?category=35)下载。
 
-APM Planner listens on UDP port 14550, so it should catch telemetry from the drone automatically.
+APM Planner会监听UDP的14550端口，因此它应该可以自动捕捉到Navio的数传数据。
 
 ### MAVProxy
 
-MAVProxy is a console-oriented ground station software written in Python. It’s well suited for advanced users and developers.
+MAVProxy是一个面向控制台的地面站软件，用Python开发。它很适合高级用户和开发者使用。
 
-To install MAVProxy use [Download and Installation](http://ardupilot.github.io/MAVProxy/html/getting_started/download_and_installation.html) instructions.
+可以参考[下载并安装](http://ardupilot.github.io/MAVProxy/html/getting_started/download_and_installation.html)里的步骤安装MAVProxy。
 
 
-To run it specify the --master port, which can be serial, TCP or UDP. It also can perform data passthrough using --out option.
+在运行MAVProxy时，请通过`--master`参数指定端口，这个端口可以是串口、TCP或者UDP。还可以通过`--out`选项让它将收到的数据转发出来。
 
 ```bash
 pi@navio: ~ $ mavproxy.py --master 192.168.1.2:14550 --console
 ```
 
-Where 192.168.1.2 is the IP address of the GCS, not RPi.
+其中，192.168.1.2是地面站的IP，不是RPi的IP。
 
-## Launching a custom ArduPilot binary
+## 启动一个自定义的ArduPilot二进制程序
 
-Navio is supported in ArduPilot upstream and if you'd like to build the binary yourself please proceed to the [Building from sources](building-from-sources.md). Also you can download the latest stable binary files from ArduPilot buildserver. To download arducopter-quad binary:
+Navio2在ArduPilot上游项目中直接支持，如果你想要亲手构建二进制文件，那么请参考[从源码构建](building-from-sources.md)。你还可以从arudupilot buildserver直接下载最新的稳定版二进制文件。例如，如果想要下载arducopter-quad：
 
 ```bash
 pi@navio: ~ $ wget http://firmware.eu.ardupilot.org/Copter/stable/navio2-quad/arducopter-quad
 pi@navio: ~ $ chmod +x arducopter-quad
 ```
-In case of use another frame type, change tail of the link. For example `/navio2-hexa/arducopter-hexa`. Supported vehicle types are listed below:
+
+如果想要启动其他类型机架的文件，修改后缀即可，例如，改成`/navio2-hexa/arducopter-hexa`。目前支持的类型包括：
 
 * ArduRover
 * ArduPlane
@@ -245,10 +245,9 @@ In case of use another frame type, change tail of the link. For example `/navio2
 * ArduCopter-heli
 * ArduCopter-single
 
-If you want to launch a custom binary you're expected to modify and use /etc/systemd/system/ardupilot.service
+如果你想要启动自定义的二进制文件，那么应该去修改`/etc/systemd/system/ardupilot.service`文件。
 
 ```bash
-
 [Unit]
 Description=ArduPilot for Linux
 After=systemd-modules-load.service
@@ -278,17 +277,21 @@ Restart=on-failure
 WantedBy=multi-user.target
 ```
 
-The comments speak for themselves. The only thing you need to adjust is 
+上面的注释很好理解。你唯一需要调整的内容是把下面这行：
+
 ```bash
 #ExecStart=/bin/sh -c "/home/pi/<path>/<to>/<your>/<binary> ${ARDUPILOT_OPTS}"
 ```
-to something like this
+
+修改成类似下面这样：
+
 ```bash
 ExecStart=/bin/sh -c "/home/pi/arducopter-quad ${ARDUPILOT_OPTS}"
 ```
-Other than that the launching procedure is no different than the one described above with the only exception that you need to use systemctl utility with `ardupilot` service instead of `arducopter`/`arduplane`/`ardurover` and use `/etc/default/ardupilot` for `ARDUPILOT_OPTS` modifications.
 
-The command below  will start custom ArduPilot binary and then mark it to launch on boot:
+除此以外，还有另一个不同之处是你需要用`ardupilot`这个systemd服务名，而不是`arducopter`/`arduplane`/`ardurover`，并且需要修改`/etc/default/ardupilot`文件来调整`ARDUPILOT_OPTS`选项。
+
+下面的命令会启动自定义的ArduPilot二进制文件并且将其标记为引导时启动：
 
 ```bash
 pi@navio: ~ sudo systemctl start ardupilot && sudo systemctl enable ardupilot

@@ -1,19 +1,19 @@
-## Overview
+## 概览
 
-We use a conventional Debian scheme to upgrade software, i.e. using **APT**.
+我们使用Debian的方式——**APT**——来升级。
 
 !!! warning
-    Please, backup your parameters before proceeding!
+    请在修改之前备份参数！
 
-## Upgrade
+## 升级
 
 ```bash
 pi@navio: ~ $ sudo apt-get update && sudo apt-get dist-upgrade
 ```
 ![compass-warning](img/navio2-compass-recalibration.png)
 
-Read the warning once more and please obey the instructions!
+再读一遍上面的警告！
 
-## Final thoughts
+## 最后一点想法
 
-If this tutorial is confusing in any way, please let us now! We'd be glad to help you out and fix the instructions accordingly.
+如果这份教程有什么让你觉得迷惑的地方，请告诉我们！我们会解答您的疑问并修改这份指南。

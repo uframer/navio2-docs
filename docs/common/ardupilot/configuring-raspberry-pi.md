@@ -1,25 +1,25 @@
-## Downloading configured Raspbian image
+## 下载预配置的Raspbian映像
 
-Navio requires a preconfigured Raspbian to run. We provide a unified SD card image for Raspberry Pi 2 and 3. The OS is headless, i.e. it comes without GUI as it is not required for drone applications.
+Navio2需要预先配置好的Raspbian映像。我们为RPi2和RPi3提供了统一的映像。这个映像不包含GUI，因为对于无人机应用来说我们不需要GUI。
 
 [Download emlid-raspbian-20170323 SD card image](http://files.emlid.com/images/emlid-raspbian-20170323.img.xz), [(md5)](https://files.emlid.com/images/MD5SUMS)
 
-## Writing image to SD card
+## 将映像写入SD卡
 
-* Get the latest Emlid Raspbian Image.
-* Download, extract and run [Etcher](https://etcher.io/) with administrator rights.
-* Select the archive file with image and sd card drive letter.
-* Click “Flash!”. The process may take a few minutes.
+* 下载最新的Emlid Raspbian映像。
+* 下载、解压并用管理员权限运行[Etcher](https://etcher.io/)。
+* 选择第一步解压出来的映像文件并指定sd卡的盘符。
+* 点击“Flash!”。烧写过程可能需要几分钟时间。
 
 <iframe  title="Emlid manuals" width="680" height="380" src="https://www.youtube.com/embed/i8_TFYWYt_M" allowfullscreen></iframe>
 
-More detailed instructions are available [here](http://www.raspberrypi.org/documentation/installation/installing-images/).
+可以在[这里](http://www.raspberrypi.org/documentation/installation/installing-images/)了解详细信息。
 
-## Configuring Wi-Fi access
+## 配置Wi-Fi访问
 
-Raspberry Pi3 has an internal Wi-Fi module, while Raspberry Pi 2 requires an external USB Wi-Fi dongle. An extensive list of supported dongles is available [here](http://elinux.org/RPi_USB_Wi-Fi_Adapters).
+Raspberry Pi 3内置了Wi-Fi模块，Raspberry Pi 2则需要使用外置USB Wi-Fi模块。你可以在[这里](http://elinux.org/RPi_USB_Wi-Fi_Adapters)查到可用的列表。
 
-Wi-Fi networks can be configured by editing the wpa_supplicant.conf file located on SD card (/boot partition). To add your network simply add the following lines to it:
+Wi-Fi网络可以通过编辑SD卡上的`/boot/wpa_supplicant.conf`文件来配置。如果你的WiFi AP使用的是PSK的方式配置，那么添加如下内容即可：
 
 ```bash
 network={
@@ -29,54 +29,62 @@ network={
 }
 ```
 
-To get access to this file use one of the following methods:
+你可以通过如下方式之一编辑这个文件的内容：
 
-### Edit configuration on SD card
+### 在SD卡上编辑
 
-Simply plug an SD card in your computer. After getting access to SD card contents, open wpa_supplicant.conf located on /boot partition (with root privileges on Linux) and edit the file as described above.
+将SD卡插入你的电脑，打开并编辑`/boot/wpa_supplicant.conf`（在Linux上需要root权限）。
 
-### Use monitor and keyboard
+### 外接显示器和键盘
 
-Connect HDMI monitor and USB keyboard to your Raspberry, power it up and you will get access to the console, where you can use text editor to modify wpa_supplicant. After logging into the system, type:
+分别通过HDMI接口和USB接口将显示器和键盘接入你的Raspberry Pi，启动RPi并登陆控制台，然后使用你喜欢的文本编辑器修改`/boot/wpa_supplicant.conf`。例如，在登陆后，输入如下命令：
 
 ```bash
 sudo nano /boot/wpa_supplicant.conf
 ```
 
-Modify the file as described above, save it and reboot.
-This method may be problematic because some keyboards are not compatible with this kernel. If your keyboard does not work, try another one or use another method.
+然后将文件内容修改为上面提到的内容，保存文件并重启RPi。
 
-### Use Ethernet
+这个方法可能会遇到一些问题，因为我们这个发行版的内科可能同某些键盘不兼容。如果你的键盘不能正常工作，那么请尝试使用上一种方法。
 
-You can connect to Raspberry Pi over Ethernet by plugging it using Ethernet cable to a switch, router or directly to your computer.
+### 使用以太网
 
-### Trying to connect using Zeroconf
+你也可以通过网线将RPi接入以太网。
 
-There's a pretty good chance you'll be able to ssh into your Raspberry Pi using Zeroconf.
+### 尝试使用Zeroconf连接
 
-You can try either ```ssh pi@navio.local``` on Mac or Linux or type navio.local in Putty on Windows.
+很有可能你可以直接通过Zeroconf协议连接到Raspberry Pi。
 
-If that doesn't work out for you, read a section below.
+你可以在Mac或者Linux上使用`ssh pi@navio.local`，在Windows的Putty上使用`navio.local`。
 
-### Finding an IP address
+如果连不上，那么请尝试下面的方法。
 
-To find an IP address of your Raspberry Pi use nmap utility.
+### 获得所用的IP地址
 
-It can be run from the console on your desktop:
+如果想要知道RPi所使用的IP地址，可以使用nmap工具。
+
+从你的电脑上运行如下命令：
+
+```bash
 nmap -sn 192.168.1.*
+```
 
-You can use it with a GUI such as Zenmap or Fing application on your phone.
+你也可以使用如Zenmap或者Fing这样的图形界面应用程序。
 
-Look for the hostname ”navio”.
+在结果中查找主机名为”navio”的条目。
 
-### wpa_passphrase on Linux
+### Linux上的wpa_passphrase
 
-If you edit the file on a Raspberry or on a Linux computer you can populate **wpa_supplicant.conf** with a utility called **wpa_passphrase** like this:
+如果你在Linux上或者直接在Raspberry Pi上编辑`wpa_supplicant.conf`文件，那么可以使用`wpa_passphrase`工具：
 
-```sudo bash -c "wpa_passphrase SSID password >> /boot/wpa_supplicant.conf```
+```bash
+sudo bash -c "wpa_passphrase SSID password >> /boot/wpa_supplicant.conf"
+```
 
-## Upgrading
+## 升级
 
-If required you can now upgrade your system by running:
+如果有必要，你可以使用下面的命令升级你的系统：
 
-```sudo apt-get update && sudo apt-get dist-upgrade```
+```bash
+sudo apt-get update && sudo apt-get dist-upgrade
+```
